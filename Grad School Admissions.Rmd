@@ -1,0 +1,126 @@
+---
+title: "Grad School Admission"
+Author: "Juliet Thistleton"
+output: html_notebook
+---
+
+# Packages
+```{r}
+library(here)
+library(janitor)
+library(tidyverse)
+```
+
+# Load Data 
+
+```{r}
+df1 <- read.csv(here("data_raw", "Admission_Predict_Ver1.1.csv")) |> clean_names()
+```
+
+```{r}
+gre <- df1$gre_score
+toefl <- df1$toefl_score
+rating <- df1$university_rating
+sop <- df1$sop
+lor <- df1$lor
+cgpa <- df1$cgpa
+research <- df1$reserach
+chance_admit <- df1$chance_of_admit
+txt_cor <- "Correlationn Coefficient:"
+
+```
+
+
+# Influence of Gre Scores on Admission Chances
+```{r}
+plot(x =gre, y = chance_admit, xlab = "Gre Scores", ylab = "Chance of Admission") 
+title(main = "Gre Score's Correlation with Chance of Admission")
+gre_lm <- lm(chance_of_admit ~gre_score, data = df1)
+abline(gre_lm)
+tidy(summary(gre_lm))
+
+cat(txt_cor, cor(gre, chance_admit))
+
+```
+
+# Influence of Gre Scores on Admission Chances
+```{r}
+plot(gre, chance_admit, xlab = "Gre Scores", ylab = "Chance of Admission") 
+title(main = "Gre Score's Correlation with Chance of Admission")
+gre_lm <- lm(chance_of_admit ~gre_score, data = df1)
+abline(gre_lm)
+tidy(gre_lm)
+
+cat(txt_cor, cor(gre, chance_admit))
+
+```
+
+# Influence of Toefl on Admission Chances
+```{r}
+plot(toefl, chance_admit, xlab = "Toefl Score", ylab = "Chance of Admission") 
+title(main = "Toefl Score's correlation with Chance of Admission")
+toefl_lm <- lm(chance_of_admit ~toefl_score, data = df1)
+abline(toefl_lm)
+tidy(summary(toefl_lm))
+
+cat(txt_cor, cor(toefl, chance_admit))
+
+```
+
+# Influence of University Rating on Admission Chances
+```{r}
+plot(rating, chance_admit, xlab = "University Rating Score", ylab = "Chance of Admission") 
+title(main = "University Rating's Correlation with Chance of Admission")
+rating_lm <- lm(chance_of_admit ~university_rating, data = df1)
+abline(rating_lm)
+tidy(summary(rating_lm))
+
+cat(txt_cor, cor(rating, chance_admit))
+
+```
+
+# Influence of Statement of Purpose on Admission Chances
+```{r}
+plot(sop, chance_admit, xlab = "SOP Score", ylab = "Chance of Admission") 
+title(main = "SOP Score's correlation with Chance of Admission")
+sop_lm <- lm(chance_of_admit ~sop, data = df1)
+abline(sop_lm)
+tidy(summary(sop_lm))
+
+cat(txt_cor, cor(sop, chance_admit))
+
+```
+
+# Influence of Letter of Recommendation on Admission Chances
+```{r}
+plot(lor, chance_admit, xlab = "LOR Score", ylab = "Chance of Admission") 
+title(main = "LOR Score's correlation with Chance of Admission")
+lor_lm <- lm(chance_of_admit ~lor, data = df1)
+abline(lor_lm)
+tidy(summary(lor_lm))
+
+cat(txt_cor, cor(lor, chance_admit))
+
+```
+
+# Influence of CGPA on Admission Chances
+```{r}
+plot(cgpa, chance_admit, xlab = "CGPA Score", ylab = "Chance of Admission") 
+title(main = "CGPA Score's correlation with Chance of Admission")
+cgpa_lm <- lm(chance_of_admit ~cgpa, data = df1)
+abline(cgpa_lm)
+tidy(summary(cgpa_lm))
+
+cat(txt_cor, cor(cgpa, chance_admit))
+
+```
+
+# Influence of Research on Admission Chances
+```{r}
+ggplot(df1, aes(y = chance_of_admit, x = research)) + geom_bar(position='dodge', stat='identity')
+res_lm <- lm(chance_of_admit ~reserach, data = df1)
+
+df1 |>
+  group_by(research) 
+```
+
