@@ -1,1 +1,0 @@
-# taylor_swift_project
