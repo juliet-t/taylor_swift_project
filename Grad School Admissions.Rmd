@@ -9,6 +9,7 @@ output: html_notebook
 library(here)
 library(janitor)
 library(tidyverse)
+library(broom)
 ```
 
 # Load Data 
