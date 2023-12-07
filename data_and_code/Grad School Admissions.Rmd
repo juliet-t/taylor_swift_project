@@ -7,10 +7,10 @@ output: html_notebook
 # Packages Needed: Install only if you do not have these packages already
 
 ```{r}
-install.packages("here")
-install.packages("janitor")
-install.packages("tidyverse")
-install.packages("broom")
+# install.packages("here")
+# install.packages("janitor")
+# install.packages("tidyverse")
+# install.packages("broom")
 ```
 
 # Packages
@@ -27,6 +27,8 @@ library(broom)
 df1 <- read.csv(here("data_and_code", "Admission_Predict_Ver1.1.csv")) |> clean_names()
 ```
 
+# Putting each variable of the data frame into its own variable. 
+
 ```{r}
 gre <- df1$gre_score
 toefl <- df1$toefl_score
@@ -34,22 +36,22 @@ rating <- df1$university_rating
 sop <- df1$sop
 lor <- df1$lor
 cgpa <- df1$cgpa
-research <- df1$reserach
 chance_admit <- df1$chance_of_admit
 txt_cor <- "Correlationn Coefficient:"
+txt_linear <- "Linear Regession Line:"
 
 ```
 
 
 # Influence of Gre Scores on Admission Chances
 ```{r}
-plot(x =gre, y = chance_admit, xlab = "Gre Scores", ylab = "Chance of Admission") 
-title(main = "Gre Score's Correlation with Chance of Admission")
+plot(x= gre, y = chance_admit, xlab = "Gre Scores", ylab = "Chance of Admission", main = "Gre Score's Correlation with Chance of Admission")
 gre_lm <- lm(chance_of_admit ~gre_score, data = df1)
 abline(gre_lm)
 tidy(summary(gre_lm))
 
-cat(txt_cor, cor(gre, chance_admit))
+cat(txt_cor, cor(gre,chance_admit))
+cat("\n", txt_linear, "y = -2.48 + 0.01x")
 
 ```
 
@@ -64,6 +66,7 @@ abline(toefl_lm)
 tidy(summary(toefl_lm))
 
 cat(txt_cor, cor(toefl, chance_admit))
+cat("\n", txt_linear, "y = -1.45 + 0.02x")
 
 ```
 
@@ -76,6 +79,8 @@ abline(rating_lm)
 tidy(summary(rating_lm))
 
 cat(txt_cor, cor(rating, chance_admit))
+cat("\n", txt_linear, "y = 0.46 + 0.09x")
+
 
 ```
 
@@ -88,6 +93,7 @@ abline(sop_lm)
 tidy(summary(sop_lm))
 
 cat(txt_cor, cor(sop, chance_admit))
+cat("\n", txt_linear, "y = 0.39 + 0.10x")
 
 ```
 
@@ -100,43 +106,47 @@ abline(lor_lm)
 tidy(summary(lor_lm))
 
 cat(txt_cor, cor(lor, chance_admit))
+cat("\n", txt_linear, "y = 0.38 + 0.10x")
+
 
 ```
 
 # Influence of CGPA on Admission Chances
 ```{r}
-plot(lor, chance_admit, xlab = "CGPA Score", ylab = "Chance of Admission") 
+plot(cgpa, chance_admit, xlab = "CGA Score", ylab = "Chance of Admission") 
 title(main = "CGPA Score's correlation with Chance of Admission")
 cgpa_lm <- lm(chance_of_admit ~cgpa, data = df1)
 abline(cgpa_lm)
 tidy(summary(cgpa_lm))
 
 cat(txt_cor, cor(cgpa, chance_admit))
-cat("\nSample mean:", mean(cgpa))
-cat("\nStandard Deviation:", sd(cgpa))
+cat("\n", txt_linear, "y = -1.04 + 0.21x")
+
+
 ```
 https://grad.ucla.edu/deans/announcements/memo20180816.pdf#:~:text=A%20minimum%203.0%20cumulative%20GPA%20will%20be%20required,study%2C%20if%20any%2C%20is%20required%20for%20graduate%20admission.
 
 ```{r}
 df2 = df1 |>
   mutate(gpa = cgpa *0.4) |>
-  select(serial_no, gre_score, toefl_score, university_rating, sop, lor, cgpa, gpa, research, chance_of_admit)
+  select(serial_no, gre_score, toefl_score, university_rating, sop, lor, cgpa, gpa, research, chance_of_admit) 
+  
+df2 = df2[order(-chance_admit),]
+
+df2 = df2[1:124,]  
+
+mean(df2$gpa)
+
+gpa_adj_lm = lm(df2$chance_of_admit ~gpa, data = df2)
+tidy(summary(gpa_adj_lm))
+sd(df2$gpa)
+
+
 ```
 
-# Influence of GPA on Admission Chances
-```{r}
-plot(df2$gpa, chance_admit, xlab = "GPA Score", ylab = "Chance of Admission") 
-title(main = "GPA Score's correlation with Chance of Admission")
-gpa_lm <- lm(chance_of_admit ~gpa, data = df2)
-abline(gpa_lm)
-tidy(summary(gpa_lm))
 
-cat(txt_cor, cor(df2$gpa, chance_admit)) 
-cat("\nSample mean:", mean(df2$gpa))
-cat("\nStandard Deviation:", sd(df2$gpa))
-    
-```
-# GPA 
+# GPA the mean 
+
 
 Null Hypothesis: mu = 3.80
 
@@ -144,46 +154,19 @@ Alternative: mu != 3.80
 
 Alpha level = 0.05
 
-Rejection region: (-infinity, -1.96] U [1.96, infinity)
+Rejection region: (-infinity, -1.645]
 
-sample sd = 0.24
+sample sd = 0.1089738
 
-sample mean = 3.43
+sample mean = 3.733
 
 n = 500
 ```{r}
-xbar = 3.43
-h0 = 3.80
-s = 0.24
+xbar = 3.733
+h0 = 3.800
+s = 0.1089738
 n = 500
 
 z =((xbar - h0) / (s/sqrt(n)))
-print(z)
+cat("TS Observed:",z)
 ```
-
-# CGPA
-
-
-Null Hypothesis: mu = 3.80 /.4 = 9.5
-
-Alternative: mu != 9.5
-
-Alpha level = 0.05
-
-Rejection region: (-infinity, -1.96] U [1.96, infinity)
-
-Sample mean: 8.57644
-
-Standard Deviation: 0.6048128
-n = 500
-```{r}
-xbar = 8.6
-h0 = 9.50
-s = 0.60
-n = 500
-
-z =((xbar - h0) / (s/sqrt(n)))
-print(z)
-```
-
-
