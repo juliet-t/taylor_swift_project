@@ -124,7 +124,7 @@ cat("\n", txt_linear, "y = -1.04 + 0.21x")
 
 
 ```
-https://grad.ucla.edu/deans/announcements/memo20180816.pdf#:~:text=A%20minimum%203.0%20cumulative%20GPA%20will%20be%20required,study%2C%20if%20any%2C%20is%20required%20for%20graduate%20admission.
+# Creating a data frame of only the top 24% of the 500 who had the highest chances of getting into UCLA 
 
 ```{r}
 df2 = df1 |>
@@ -132,6 +132,8 @@ df2 = df1 |>
   select(serial_no, gre_score, toefl_score, university_rating, sop, lor, cgpa, gpa, research, chance_of_admit) 
   
 df2 = df2[order(-chance_admit),]
+
+
 
 df2 = df2[1:124,]  
 
@@ -145,8 +147,7 @@ sd(df2$gpa)
 ```
 
 
-# GPA the mean 
-
+# GPA
 
 Null Hypothesis: mu = 3.80
 
@@ -156,11 +157,6 @@ Alpha level = 0.05
 
 Rejection region: (-infinity, -1.645]
 
-sample sd = 0.1089738
-
-sample mean = 3.733
-
-n = 500
 ```{r}
 xbar = 3.733
 h0 = 3.800
