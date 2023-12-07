@@ -4,6 +4,15 @@ Author: "Juliet Thistleton"
 output: html_notebook
 ---
 
+# Packages Needed: Install only if you do not have these packages already
+
+```{r}
+install.packages("here")
+install.packages("janitor")
+install.packages("tidyverse")
+install.packages("broom")
+```
+
 # Packages
 ```{r}
 library(here)
@@ -103,7 +112,8 @@ abline(cgpa_lm)
 tidy(summary(cgpa_lm))
 
 cat(txt_cor, cor(cgpa, chance_admit))
-
+cat("\nSample mean:", mean(cgpa))
+cat("\nStandard Deviation:", sd(cgpa))
 ```
 https://grad.ucla.edu/deans/announcements/memo20180816.pdf#:~:text=A%20minimum%203.0%20cumulative%20GPA%20will%20be%20required,study%2C%20if%20any%2C%20is%20required%20for%20graduate%20admission.
 
@@ -113,10 +123,67 @@ df2 = df1 |>
   select(serial_no, gre_score, toefl_score, university_rating, sop, lor, cgpa, gpa, research, chance_of_admit)
 ```
 
+# Influence of GPA on Admission Chances
+```{r}
+plot(df2$gpa, chance_admit, xlab = "GPA Score", ylab = "Chance of Admission") 
+title(main = "GPA Score's correlation with Chance of Admission")
+gpa_lm <- lm(chance_of_admit ~gpa, data = df2)
+abline(gpa_lm)
+tidy(summary(gpa_lm))
 
-Null Hypothesis: mu = 8.58
+cat(txt_cor, cor(df2$gpa, chance_admit)) 
+cat("\nSample mean:", mean(df2$gpa))
+cat("\nStandard Deviation:", sd(df2$gpa))
+    
+```
+# GPA 
 
-Alternative: mu != 8
+Null Hypothesis: mu = 3.80
 
+Alternative: mu != 3.80
+
+Alpha level = 0.05
+
+Rejection region: (-infinity, -1.96] U [1.96, infinity)
+
+sample sd = 0.24
+
+sample mean = 3.43
+
+n = 500
+```{r}
+xbar = 3.43
+h0 = 3.80
+s = 0.24
+n = 500
+
+z =((xbar - h0) / (s/sqrt(n)))
+print(z)
+```
+
+# CGPA
+
+
+Null Hypothesis: mu = 3.80 /.4 = 9.5
+
+Alternative: mu != 9.5
+
+Alpha level = 0.05
+
+Rejection region: (-infinity, -1.96] U [1.96, infinity)
+
+Sample mean: 8.57644
+
+Standard Deviation: 0.6048128
+n = 500
+```{r}
+xbar = 8.6
+h0 = 9.50
+s = 0.60
+n = 500
+
+z =((xbar - h0) / (s/sqrt(n)))
+print(z)
+```
 
 
