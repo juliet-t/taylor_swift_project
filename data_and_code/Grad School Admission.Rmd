@@ -9,12 +9,14 @@ output: html_notebook
 
 ```{r}
 # install.packages("janitor")
+# install.packages("tidyverse")
 ```
 
 # Load Packages
 
 ```{r}
 library(janitor)
+library(tidyverse)
 ```
 
 
