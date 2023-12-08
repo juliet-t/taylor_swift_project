@@ -5,7 +5,7 @@ output: html_notebook
 ---
 
 
-# Install package (if you do not have already)
+# Install packages (if you do not have already)
 
 ```{r}
 # install.packages("janitor")
@@ -79,7 +79,6 @@ tidy(summary(rating_lm))
 
 cat(txt_cor, cor(rating, chance_admit))
 cat("\n", txt_linear, "y = 0.46 + 0.09x")
-
 
 ```
 
