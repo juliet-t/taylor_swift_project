@@ -52,7 +52,6 @@ tidy(summary(gre_lm))
 
 cat(txt_cor, cor(gre,chance_admit))
 cat("\n", txt_linear, "y = -2.48 + 0.01x")
-
 ```
 
 
