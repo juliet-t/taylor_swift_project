@@ -10,7 +10,7 @@ output: html_notebook
 ```{r}
 # install.packages("rmarkdown")
 # install.packages("janitor")
-# instaall.packages("broom")
+# install.packages("broom")
 ```
 
 # Load Packages
