@@ -8,6 +8,7 @@ output: html_notebook
 # Install packages (if you do not have already)
 
 ```{r}
+# install.packages("rmarkdown")
 # install.packages("janitor")
 # install.packages("tidyverse")
 ```
@@ -17,6 +18,7 @@ output: html_notebook
 ```{r}
 library(janitor)
 library(tidyverse)
+library(rmarkdown)
 ```
 
 
