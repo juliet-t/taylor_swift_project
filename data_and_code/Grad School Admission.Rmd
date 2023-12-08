@@ -4,27 +4,11 @@ Author: "Juliet Thistleton"
 output: html_notebook
 ---
 
-# Packages Needed: Install only if you do not have these packages already
-
-```{r}
-# install.packages("here")
-# install.packages("janitor")
-# install.packages("tidyverse")
-# install.packages("broom")
-```
-
-# Packages
-```{r}
-library(here)
-library(janitor)
-library(tidyverse)
-library(broom)
-```
-
 # Load Data 
 
 ```{r}
-df1 <- read.csv(here("data_and_code", "Admission_Predict_Ver1.1.csv")) |> clean_names()
+setwd(getwd())
+df1 <- read.csv(("Admission_Predict_Ver1.1.csv")) |> clean_names()
 ```
 
 # Putting each variable of the data frame into its own variable. 
