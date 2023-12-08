@@ -4,6 +4,20 @@ Author: "Juliet Thistleton"
 output: html_notebook
 ---
 
+
+# Install package (if you do not have already)
+
+```{r}
+# install.packages("janitor")
+```
+
+# Load Packages
+
+```{r}
+library(janitor)
+```
+
+
 # Load Data 
 
 ```{r}
