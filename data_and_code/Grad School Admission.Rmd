@@ -10,14 +10,14 @@ output: html_notebook
 ```{r}
 # install.packages("rmarkdown")
 # install.packages("janitor")
-# install.packages("tidyverse")
+# instaall.packages("broom")
 ```
 
 # Load Packages
 
 ```{r}
 library(janitor)
-library(tidyverse)
+library(broom)
 library(rmarkdown)
 ```
 
