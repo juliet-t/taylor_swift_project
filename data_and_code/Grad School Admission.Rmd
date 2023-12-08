@@ -11,6 +11,7 @@ output: html_notebook
 # install.packages("rmarkdown")
 # install.packages("janitor")
 # install.packages("broom")
+# install.packages("tidyverse")
 ```
 
 # Load Packages
@@ -19,6 +20,7 @@ output: html_notebook
 library(janitor)
 library(broom)
 library(rmarkdown)
+library(tidyverse)
 ```
 
 
